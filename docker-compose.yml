@@ -2,7 +2,7 @@ version: '3'
 services:
   mongo:
     image: 'mongo:5.0.19'
-    container_name: loja
+    container_name: loja_db
     ports:
       - "27017:27017"
     volumes:
@@ -10,6 +10,8 @@ services:
     networks:
       - loja-network
   loja:
+    depends_on:
+      - mongo
     build: .
     ports:
       - "8080:8080"
