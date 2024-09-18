@@ -1,0 +1,28 @@
+# exemplo deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paymentdeployment
+  labels:
+    app: paymentdeployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paymentdeployment
+  template:
+    metadata:
+      labels:
+        app: paymentdeployment
+    spec:
+      containers:
+        - name: payment
+          image: carlaccp/pagamento-techchallenge
+          ports:
+            - containerPort: 8081
+          env:
+            - name: MONGO_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: payment-config
+                  key: MONGO_URL

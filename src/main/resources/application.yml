@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: Loja
+  data:
+    mongodb:
+      uri: ${MONGO_URL}
+#      uri: mongodb://localhost:27017/loja
+      auto-index-creation: true

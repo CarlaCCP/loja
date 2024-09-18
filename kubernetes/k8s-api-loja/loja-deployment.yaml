@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lojadeployment
+  labels:
+    app: lojadeployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lojadeployment
+  template:
+    metadata:
+      labels:
+        app: lojadeployment
+    spec:
+      containers:
+        - name: loja
+          image: carlaccp/loja-techchallenge
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 120
+          readinessProbe:
+            httpGet:
+              path: /produto
+              port: 8080
+            initialDelaySeconds: 40
+            failureThreshold: 3
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 1m
+          env:
+            - name: MONGO_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: MONGO_URL

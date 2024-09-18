@@ -2,23 +2,22 @@ version: '3'
 services:
   mongo:
     image: 'mongo:5.0.19'
-    container_name: loja_db
+    container_name: loja
     ports:
       - "27017:27017"
     volumes:
       - /tmp/loja/mongo:/data/db
     networks:
       - loja-network
-  loja:
-    depends_on:
-      - mongo
-    build: .
-    ports:
-      - "8080:8080"
-    environment:
-      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/loja
-    networks:
-      - loja-network
+#    command: mongod --repair
+#  loja:
+#    build: .
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/loja
+#    networks:
+#      - loja-network
 
 networks:
   loja-network:
