@@ -1,4 +1,4 @@
-name: ci + cd
+name: Delete eks
 
 on:
   workflow_dispatch:
