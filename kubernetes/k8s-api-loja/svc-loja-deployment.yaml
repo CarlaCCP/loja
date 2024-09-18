@@ -13,7 +13,7 @@
 #   selector:
 #     app: lojadeployment
 #   type: NodePort
-apiVersion: v1
+apiVersion: v2.5
 kind: Service
 metadata:
   labels:
@@ -32,4 +32,4 @@ spec:
   selector:
     app: lojadeployment
   type: LoadBalancer
-  loadBalancerClass: service.k8s.aws/nlb
+#  loadBalancerClass: service.k8s.aws/nlb
