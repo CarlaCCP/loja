@@ -19,12 +19,18 @@ metadata:
   labels:
     app: svc-loja
   name: svc-loja
+  annotations:
+    service:
+      beta:
+        kubernetes:
+          io/aws-load-balancer-name: lojadeployment
 spec:
   ports:
     - port: 80
       protocol: TCP
-      targetPort: 8080
-#      nodePort: 31300
+#      targetPort: 8080 usado na config do eks para api de payment
+      targetPort: web
   selector:
     app: lojadeployment
   type: LoadBalancer
+  loadBalancerClass: service.k8s.aws/nlb
