@@ -32,4 +32,4 @@ spec:
   selector:
     app: lojadeployment
   type: LoadBalancer
-#  loadBalancerClass: service.k8s.aws/nlb
+  loadBalancerClass: service.k8s.aws/nlb
