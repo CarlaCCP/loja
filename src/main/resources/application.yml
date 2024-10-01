@@ -2,13 +2,10 @@ spring:
   application:
     name: Loja
 
-aws:
-    accessKey: ASIAQI62I43TZEFYILNS
-    secretKey: pHn8fxks4XWfgm2jAlp/OiqS8CNrkWzKyIUG4B17
-    region: us-east-1
-    java:
-        v1:
-          disableDeprecationAnnouncement: true
+cloud:
+  aws:
+    credentials:
+      useDefaultAwsCredentialsChain: true
 #aws:
 #  java:
 #    v1:
