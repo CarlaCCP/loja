@@ -38,7 +38,7 @@ class OrderUseCase {
         .toPedido()
         .copy(
           createdAt = LocalDateTime.now(),
-          status = Status.RECEBIDO
+          orderStatus = Status.RECEBIDO
         )
     )
     val paymentResponse = paymentClient.createPayment(order.id!!)
@@ -49,7 +49,7 @@ class OrderUseCase {
           .toPedido()
           .copy(
             createdAt = LocalDateTime.now(),
-            status = Status.NEGADO
+            orderStatus = Status.NEGADO
           )
       )
     } else {
@@ -62,26 +62,26 @@ class OrderUseCase {
   fun getOrders(orderGateway: IOrderGateway) = orderGateway.findAll()
 
   fun deleteOrderByStatus(orderGateway: IOrderGateway) {
-    val listOrders: List<Order> = orderGateway.findByStatus(Status.FINALIZADO)
+    val listOrders: List<Order>? = orderGateway.findByStatus(Status.FINALIZADO)
 
-    if (listOrders.isNotEmpty()) {
-      listOrders.map {
+    if (listOrders.isNullOrEmpty()) {
+      listOrders?.map {
         orderGateway.deleteById(it.id!!)
         log.info { "Pedido ${it.id} finalizado removido da fila" }
       }
     }
   }
 
-  fun updateOrderByStatus(orderGateway: IOrderGateway) {
-    val order: Order? = orderGateway.findFirst()
+  fun updateOrderByStatus(orderGateway: IOrderGateway, status: Status) {
+    val order: List<Order>? = orderGateway.findByStatus(status)
 
-    if (order != null) {
+    order?.map {
       orderGateway.save(
-        order.copy(
-          status = if (updateStatus(order.status) == null) order.status else updateStatus(order.status)
+        it.copy(
+          orderStatus = if (updateStatus(it.orderStatus) == null) it.orderStatus else updateStatus(it.orderStatus)
         )
       )
-      log.info { "Pedido ${order.id} foi atualizado para o status ${updateStatus(order.status)}" }
+      log.info { "Pedido ${it.id} foi atualizado para o status ${updateStatus(it.orderStatus)}" }
     }
   }
 
@@ -90,20 +90,20 @@ class OrderUseCase {
     if (order != null && paymentDTO.event == PaymentEvent.APPROVED) {
       orderGateway.save(
         order.copy(
-          status = Status.EM_PREPARACAO
+          orderStatus = Status.EM_PREPARACAO
         )
       )
       log.info { "Pagamento de pedido ${order.id} realizado com sucesso" }
     } else if (order != null && paymentDTO.event == PaymentEvent.DENIED) {
       orderGateway.save(
         order.copy(
-          status = Status.NEGADO
+          orderStatus = Status.NEGADO
         )
       )
       log.info { "Pagamento de pedido ${order.id} realizado com sucesso" }
     } else {
       if (order != null) {
-        orderGateway.save(order.copy(status = Status.NEGADO))
+        orderGateway.save(order.copy(orderStatus = Status.NEGADO))
         log.info { "Pagamento de pedido ${order.id} negado" }
       }
     }
@@ -112,6 +112,7 @@ class OrderUseCase {
 
   private fun updateStatus(status: Status?): Status? =
     when (status) {
+      Status.RECEBIDO -> Status.EM_PREPARACAO
       Status.EM_PREPARACAO -> Status.PRONTO
       Status.PRONTO -> Status.FINALIZADO
       else -> null

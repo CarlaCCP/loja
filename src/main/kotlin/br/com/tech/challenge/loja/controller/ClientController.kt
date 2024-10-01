@@ -23,7 +23,7 @@ class ClientController(
 
   fun getClients(clientGateway: IClientGateway): List<ClientDTO>? {
     val response = clientConfig.clientUseCase().getClients(clientGateway)
-    return response.map { ClientAdapter.fromClient(it) }
+    return response?.map { ClientAdapter.fromClient(it) }
   }
 
 }

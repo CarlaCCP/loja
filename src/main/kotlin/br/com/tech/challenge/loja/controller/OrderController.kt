@@ -32,9 +32,9 @@ class OrderController(
     return OrderGetAdapter.fromOrder(response)
   }
 
-  fun getOrders(orderGateway: IOrderGateway): List<OrderGetAdapter?> {
+  fun getOrders(orderGateway: IOrderGateway): List<OrderGetAdapter?>? {
     val response = orderConfig.orderUseCase().getOrders(orderGateway)
-    return response.map { OrderGetAdapter.fromOrder(it) }
+    return response?.map { OrderGetAdapter.fromOrder(it) }
   }
 
   fun getOrderByStatus(orderGateway: IOrderGateway, string: String) : List<OrderGetAdapter>? {

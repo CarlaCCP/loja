@@ -16,7 +16,7 @@ data class OrderAdapter(
         id = order.id!!,
         productsDescriptions = order.products.map { it.descricao },
         preco = order.preco,
-        status = order.status!!.description,
+        status = order.orderStatus!!.description,
         tempoEspera = "30 minutos",
         acompanhamentoURL = "/pedido/${order.id}"
       )

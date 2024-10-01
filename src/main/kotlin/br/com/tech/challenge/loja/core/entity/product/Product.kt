@@ -2,14 +2,15 @@ package br.com.tech.challenge.loja.core.entity.product
 
 import br.com.tech.challenge.loja.core.valueObject.category.Category
 import br.com.tech.challenge.loja.interfaces.db.IProduct
+import java.util.*
 
 data class Product(
-  override var id: String? = null,
-  var categoria: Category,
-  var nome: String,
-  var descricao: String,
-  var preco: Double,
-  var imagem: String
+  override var id: String? = UUID.randomUUID().toString(),
+  override var categoria: Category,
+  override var nome: String,
+  override var descricao: String,
+  override var preco: Double,
+  override var imagem: String
 ) : IProduct {
 
   companion object {

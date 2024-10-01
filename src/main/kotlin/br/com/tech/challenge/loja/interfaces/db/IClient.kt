@@ -1,10 +1,15 @@
 package br.com.tech.challenge.loja.interfaces.db
 
-import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.Document
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable
 
-@Document("client")
+@DynamoDBTable(tableName = "cliente")
 interface IClient {
-  @get:Id
+  @get:DynamoDBHashKey
   val cpf: String?
+  @get:DynamoDBAttribute
+  val nome: String?
+  @get:DynamoDBAttribute
+  val email: String?
 }

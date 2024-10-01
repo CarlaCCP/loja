@@ -28,17 +28,17 @@ class ProductController(
     return ProductAdapter.fromProduct(response)
   }
 
-  fun getProductByCategory(productGateway: IProductGateway, category: String): List<ProductAdapter> {
+  fun getProductByCategory(productGateway: IProductGateway, category: String): List<ProductAdapter>? {
     val response = productConfig.productUseCase().getProductByCategory(
       productGateway,
       category
     )
-    return response.map { ProductAdapter.fromProduct(it) }
+    return response?.map { ProductAdapter.fromProduct(it) }
   }
 
-  fun getProducts(productGateway: IProductGateway): List<ProductAdapter> {
+  fun getProducts(productGateway: IProductGateway): List<ProductAdapter>? {
     val response = productConfig.productUseCase().getProducts(productGateway)
-    return response.map { ProductAdapter.fromProduct(it) }
+    return response?.map { ProductAdapter.fromProduct(it) }
   }
 
   fun createProduct(productGateway: IProductGateway, productDTO: ProductDTO) : ProductAdapter {

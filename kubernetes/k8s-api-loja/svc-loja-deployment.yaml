@@ -13,6 +13,26 @@
 #   selector:
 #     app: lojadeployment
 #   type: NodePort
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  labels:
+#    app: svc-loja
+#  name: svc-loja
+#  annotations:
+#    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+#    service.beta.kubernetes.io/aws-load-balancer-scheme: internal
+#    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+#spec:
+#  ports:
+#    - port: 80
+#      protocol: TCP
+#      targetPort: 8080
+##      targetPort: web
+#  selector:
+#    app: lojadeployment
+#  type: LoadBalancer
+##  loadBalancerClass: service.k8s.aws/nlb
 apiVersion: v1
 kind: Service
 metadata:
@@ -28,8 +48,8 @@ spec:
     - port: 80
       protocol: TCP
       targetPort: 8080
-#      targetPort: web
+      nodePort: 31300
   selector:
     app: lojadeployment
+#  type: NodePort
   type: LoadBalancer
-#  loadBalancerClass: service.k8s.aws/nlb

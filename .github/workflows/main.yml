@@ -3,7 +3,6 @@ name: ci + cd
 on:
   push:
     branches: main
-  pull_request:
 
 jobs:
      login:
@@ -19,7 +18,14 @@ jobs:
          -
            name: Build docker image
            run: | 
-             docker build  -t loja-loja  --platform linux/amd64 .
+             docker build  \
+              --build-arg AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
+              --build-arg AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
+              --build-arg AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }} \
+             -t loja-loja  --platform linux/amd64 .
+         -
+           name: Build docker push
+           run: |                    
              docker image tag loja-loja ${{ secrets.DOCKERHUB_USERNAME }}/loja-techchallenge
              docker push ${{ secrets.DOCKERHUB_USERNAME }}/loja-techchallenge
 
@@ -47,9 +53,9 @@ jobs:
         - name: Update kube config
           run: aws eks update-kubeconfig --name tech
 
-        - name: Deploy to EKS mongo
-          run: |
-            kubectl apply -f kubernetes/k8s-db-loja
+#        - name: Deploy to EKS mongo
+#          run: |
+#            kubectl apply -f kubernetes/k8s-db-loja
 
         - name: Deploy to EKS config-map
           run: |

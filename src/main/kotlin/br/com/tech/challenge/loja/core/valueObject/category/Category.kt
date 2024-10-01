@@ -13,5 +13,6 @@ enum class Category(val description: String) {
         entries.first {
           it.description == description
         }
+
   }
 }

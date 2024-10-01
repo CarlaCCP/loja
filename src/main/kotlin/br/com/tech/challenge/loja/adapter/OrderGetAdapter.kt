@@ -20,7 +20,7 @@ data class OrderGetAdapter(
           it.map { product -> ProductDTO.fromProduct(product) },
           order.createdAt,
           order.preco,
-          order.status?.description
+          order.orderStatus?.description
         )
       }
   }
@@ -31,7 +31,7 @@ data class OrderGetAdapter(
             it.toProduct()
           },
           preco = products.sumOf { it.preco },
-          status = status?.let { Status.getByDescription(it) },
+          orderStatus = status?.let { Status.getByDescription(it) },
           createdAt = createdAt,
       )
 }

@@ -27,14 +27,14 @@ class ProductUseCase {
     productGateway.save(product)
 
   fun getProductByCategory(productGateway: IProductGateway, category: String) =
-    productGateway.findByCategoria(Category.getByDescription(category)).map { it }
+    productGateway.findByCategoria(Category.getByDescription(category))?.map { it }
 
-  fun getProducts(productGateway: IProductGateway) = productGateway.findAll().map { it }
+  fun getProducts(productGateway: IProductGateway) = productGateway.findAll()?.map { it }
 
   fun deleteProduct(productGateway: IProductGateway, id: String) = productGateway.deleteById(id)
 
   fun insertProductsOnInit(productGateway: IProductGateway) {
-    if (productGateway.findAll().isEmpty()) {
+    if (productGateway.findAll().isNullOrEmpty()) {
       Product.buildStaticProducts().map {
         productGateway.save(it)
       }

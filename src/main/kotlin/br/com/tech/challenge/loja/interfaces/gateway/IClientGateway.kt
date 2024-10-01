@@ -1,13 +1,15 @@
 package br.com.tech.challenge.loja.interfaces.gateway
 
 import br.com.tech.challenge.loja.core.entity.client.Client
+import org.socialsignin.spring.data.dynamodb.repository.EnableScan
 import org.springframework.stereotype.Repository
 
 @Repository
+@EnableScan
 interface IClientGateway {
   fun save(client: Client): Client
 
   fun findById(cpf: String): Client?
 
-  fun findAll(): List<Client>
+  fun findAll(): List<Client>?
 }
