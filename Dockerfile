@@ -18,7 +18,9 @@ VOLUME /tmp
 
 ARG EXTRACTED=/workspace/app/target/extracted
 
-ENV MONGO_URL=""
+ENV AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
+ENV AWS_SECRET_KEY=${AWS_SECRET_ACCESS_KEY}
+ENV AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
 
 COPY --from=build ${EXTRACTED}/dependencies/ ./
 COPY --from=build ${EXTRACTED}/spring-boot-loader/ ./
