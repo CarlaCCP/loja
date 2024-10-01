@@ -1,8 +1,15 @@
 spring:
   application:
     name: Loja
-  data:
-    mongodb:
-      uri: ${MONGO_URL}
-#      uri: mongodb://localhost:27017/loja
-      auto-index-creation: true
+
+aws:
+    accessKey: ASIAQI62I43TZEFYILNS
+    secretKey: pHn8fxks4XWfgm2jAlp/OiqS8CNrkWzKyIUG4B17
+    region: us-east-1
+    java:
+        v1:
+          disableDeprecationAnnouncement: true
+#aws:
+#  java:
+#    v1:
+#      disableDeprecationAnnouncement: 'true'

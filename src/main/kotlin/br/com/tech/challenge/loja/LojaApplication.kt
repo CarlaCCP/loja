@@ -1,15 +1,16 @@
 package br.com.tech.challenge.loja
 
+import br.com.tech.challenge.loja.config.properties.AwsProperties
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication
 import org.springframework.cloud.openfeign.EnableFeignClients
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories
 import org.springframework.scheduling.annotation.EnableScheduling
 
-@EnableMongoRepositories
 @SpringBootApplication
 @EnableScheduling
 @EnableFeignClients
+@EnableConfigurationProperties(AwsProperties::class)
 class LojaApplication
 
 fun main(args: Array<String>) {

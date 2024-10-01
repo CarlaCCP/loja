@@ -1,15 +1,15 @@
 version: '3'
 services:
-  mongo:
-    image: 'mongo:5.0.19'
-    container_name: loja
-    ports:
-      - "27017:27017"
-    volumes:
-      - /tmp/loja/mongo:/data/db
-    networks:
-      - loja-network
-#    command: mongod --repair
+#  mongo:
+#    image: 'mongo:5.0.19'
+#    container_name: loja
+#    ports:
+#      - "27017:27017"
+#    volumes:
+#      - /tmp/loja/mongo:/data/db
+#    networks:
+#      - loja-network
+##    command: mongod --repair
 #  loja:
 #    build: .
 #    ports:
@@ -18,6 +18,20 @@ services:
 #      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/loja
 #    networks:
 #      - loja-network
+
+  dynamodb-local:
+    command: |
+      -jar DynamoDBLocal.jar -sharedDb -dbPath ./data \
+
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-local
+    ports:
+      - "8001:8001"
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+    restart: always
+
 
 networks:
   loja-network:
