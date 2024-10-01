@@ -23,3 +23,4 @@ http://localhost:8080/swagger-ui/index.html
 
 ## Docker Compose
 - Start da aplicação: docker-compose up -d 
+  
