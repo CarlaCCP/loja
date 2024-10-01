@@ -20,11 +20,13 @@ jobs:
            name: Build docker image
            run: | 
              docker build  \
-              --build-arg \
-             AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
-             AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
+              --build-arg AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
+              AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
              AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }} \
-             -t loja-loja  --platform linux/amd64 . 
+             -t loja-loja  --platform linux/amd64 .
+         -
+           name: Build docker push
+           run: |                    
              docker image tag loja-loja ${{ secrets.DOCKERHUB_USERNAME }}/loja-techchallenge
              docker push ${{ secrets.DOCKERHUB_USERNAME }}/loja-techchallenge
 
