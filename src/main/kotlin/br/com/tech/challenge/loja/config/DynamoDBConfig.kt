@@ -1,10 +1,9 @@
 package br.com.tech.challenge.loja.config
 
+
 import br.com.tech.challenge.loja.interfaces.gateway.IClientGateway
 import br.com.tech.challenge.loja.interfaces.gateway.IOrderGateway
 import br.com.tech.challenge.loja.interfaces.gateway.IProductGateway
-import com.amazonaws.auth.DefaultAWSCredentialsProviderChain
-import com.amazonaws.auth.InstanceProfileCredentialsProvider
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder
@@ -25,7 +24,14 @@ class DynamoDBConfig{
   fun amazonDynamoDB(): AmazonDynamoDB = AmazonDynamoDBClientBuilder
     .standard()
     .withRegion(Regions.US_EAST_1)
-    .withCredentials(DefaultAWSCredentialsProviderChain.getInstance())
     .build()
+
+//  private fun awsCredentialsProvider(): AWSCredentialsProvider =
+//    AWSStaticCredentialsProvider(awsCredentials())
+//
+//  private fun awsCredentials(): AWSCredentials = BasicAWSCredentials(
+//    awsProperties.accessKey,
+//    awsProperties.secretKey
+//  )
 
 }
