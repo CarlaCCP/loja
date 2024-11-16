@@ -10,16 +10,14 @@ import com.amazonaws.services.dynamodbv2.document.DeleteItemOutcome
 import com.amazonaws.services.dynamodbv2.document.DynamoDB
 import com.amazonaws.services.dynamodbv2.document.Item
 import com.amazonaws.services.dynamodbv2.document.Table
-import com.amazonaws.services.dynamodbv2.document.spec.PutItemSpec
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec
-import com.amazonaws.services.dynamodbv2.document.spec.ScanSpec
 import com.amazonaws.services.dynamodbv2.model.AttributeValue
+import com.amazonaws.services.dynamodbv2.model.DeleteItemRequest
 import com.amazonaws.services.dynamodbv2.model.PutItemRequest
 import com.amazonaws.services.dynamodbv2.model.QueryRequest
 import com.amazonaws.services.dynamodbv2.model.ScanRequest
 import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
-import java.util.*
 
 @Repository
 class OrderGatewayImpl(
@@ -149,7 +147,7 @@ class OrderGatewayImpl(
 
   override fun save(order: Order): Order {
     val item = mapOf(
-      "id" to AttributeValue().withS(UUID.randomUUID().toString()),
+      "id" to AttributeValue().withS(order.id),
       "createdAt" to AttributeValue().withS(order.createdAt.toString()),
       "preco" to AttributeValue().withN(order.preco.toString()),
       "orderStatus" to AttributeValue().withS(order.orderStatus?.name),
@@ -185,6 +183,12 @@ class OrderGatewayImpl(
   }
 
   override fun deleteById(id: String): DeleteItemOutcome? {
+    println(id)
+    val request = DeleteItemRequest()
+      .withTableName(tableName)
+      .withKey(mapOf("id" to AttributeValue().withS(id)))
+    dynamoDB.deleteItem(request)
+
     return table?.deleteItem("id", id)
   }
 

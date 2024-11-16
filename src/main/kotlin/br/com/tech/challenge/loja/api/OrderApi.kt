@@ -43,6 +43,7 @@ class OrderApi(
 
   @PostMapping("/pagamento")
   @ResponseStatus(HttpStatus.CREATED)
+  @ResponseBody
   fun updatePaymentOrder(@RequestBody paymentDTO: PaymentDTO) =
     orderController.updatePaymentOrder(orderGateway, paymentDTO)
 }
