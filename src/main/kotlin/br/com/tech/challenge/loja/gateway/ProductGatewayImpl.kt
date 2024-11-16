@@ -53,7 +53,7 @@ class ProductGatewayImpl(
 
   override fun save(product: Product): Product {
     val item = Item()
-      .withPrimaryKey("id", UUID.randomUUID().toString())
+      .withPrimaryKey("id", product.id)
       .withString("categoria", product.categoria.name)
       .withString("nome", product.nome)
       .withString("descricao", product.descricao)

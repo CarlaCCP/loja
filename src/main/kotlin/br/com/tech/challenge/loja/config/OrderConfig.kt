@@ -16,7 +16,7 @@ class OrderConfig(
     return OrderUseCase()
   }
 
-  @Scheduled(fixedRate = 120000)
+  @Scheduled(fixedDelay = 120000)
   fun deleteOrderByStatus() {
     OrderUseCase().deleteOrderByStatus(orderGateway)
   }
@@ -28,7 +28,7 @@ class OrderConfig(
 
   @Scheduled(fixedDelay = 120000)
   fun updateStatusFinalizado() {
-    OrderUseCase().updateOrderByStatus(orderGateway, Status.FINALIZADO)
+    OrderUseCase().updateOrderByStatus(orderGateway, Status.PRONTO)
   }
 
   @Scheduled(fixedDelay = 120000)

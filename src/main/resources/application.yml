@@ -7,7 +7,3 @@ aws:
     secretKey: ${AWS_SECRET_KEY}
     sessionToken: ${AWS_SESSION_TOKEN}
     region: us-east-1
-#aws:
-#  java:
-#    v1:
-#      disableDeprecationAnnouncement: 'true'

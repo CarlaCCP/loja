@@ -63,9 +63,9 @@ class OrderUseCase {
 
   fun deleteOrderByStatus(orderGateway: IOrderGateway) {
     val listOrders: List<Order>? = orderGateway.findByStatus(Status.FINALIZADO)
-
-    if (listOrders.isNullOrEmpty()) {
-      listOrders?.map {
+    println(listOrders)
+    if (!listOrders.isNullOrEmpty()) {
+      listOrders.map {
         orderGateway.deleteById(it.id!!)
         log.info { "Pedido ${it.id} finalizado removido da fila" }
       }
@@ -78,7 +78,8 @@ class OrderUseCase {
     order?.map {
       orderGateway.save(
         it.copy(
-          orderStatus = if (updateStatus(it.orderStatus) == null) it.orderStatus else updateStatus(it.orderStatus)
+          orderStatus = if (updateStatus(it.orderStatus) == null) it.orderStatus else updateStatus(it.orderStatus),
+          id = it.id
         )
       )
       log.info { "Pedido ${it.id} foi atualizado para o status ${updateStatus(it.orderStatus)}" }
@@ -100,7 +101,7 @@ class OrderUseCase {
           orderStatus = Status.NEGADO
         )
       )
-      log.info { "Pagamento de pedido ${order.id} realizado com sucesso" }
+      log.info { "Pagamento de pedido ${order.id} negado" }
     } else {
       if (order != null) {
         orderGateway.save(order.copy(orderStatus = Status.NEGADO))
@@ -112,7 +113,7 @@ class OrderUseCase {
 
   private fun updateStatus(status: Status?): Status? =
     when (status) {
-      Status.RECEBIDO -> Status.EM_PREPARACAO
+//      Status.RECEBIDO -> Status.EM_PREPARACAO
       Status.EM_PREPARACAO -> Status.PRONTO
       Status.PRONTO -> Status.FINALIZADO
       else -> null
