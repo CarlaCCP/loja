@@ -5,10 +5,7 @@ import br.com.tech.challenge.loja.config.OrderConfig
 import br.com.tech.challenge.loja.interfaces.gateway.IProductGateway
 import br.com.tech.challenge.loja.adapter.OrderGetAdapter
 import br.com.tech.challenge.loja.core.dto.OrderDTO
-import br.com.tech.challenge.loja.core.dto.PaymentDTO
-import br.com.tech.challenge.loja.interfaces.client.IPaymentWebhookClient
-
-import br.com.tech.challenge.loja.interfaces.gateway.IOrderGateway
+import br.com.tech.challenge.loja.interfaces.client.IOrderClient
 
 import org.springframework.stereotype.Component
 
@@ -18,32 +15,16 @@ class OrderController(
 ) {
 
   fun createOrder(
-    orderGateway: IOrderGateway,
+    orderClient: IOrderClient,
     productRepository: IProductGateway,
     orderRequest: OrderDTO,
-    paymentClient: IPaymentWebhookClient
   ): OrderAdapter {
-    val response = orderConfig.orderUseCase().createOrder(orderGateway, productRepository, orderRequest, paymentClient)
-    return OrderAdapter.fromOrderToSummary(response)
+    return orderConfig.orderUseCase().createOrder(orderClient, productRepository, orderRequest)
   }
 
-  fun getOrder (orderGateway: IOrderGateway, id: String): OrderGetAdapter? {
-    val response = orderConfig.orderUseCase().getOrder(orderGateway, id)
-    return OrderGetAdapter.fromOrder(response)
+  fun getOrder(orderClient: IOrderClient, id: String): OrderGetAdapter? {
+    val response = orderConfig.orderUseCase().getOrder(orderClient, id)
+    return response
   }
 
-  fun getOrders(orderGateway: IOrderGateway): List<OrderGetAdapter?>? {
-    val response = orderConfig.orderUseCase().getOrders(orderGateway)
-    return response?.map { OrderGetAdapter.fromOrder(it) }
-  }
-
-  fun getOrderByStatus(orderGateway: IOrderGateway, string: String) : List<OrderGetAdapter>? {
-    return orderConfig.orderUseCase().getOrderByStatus(orderGateway, string)?.map { OrderGetAdapter.fromOrder(it)!! }
-  }
-  fun deleteOrder(orderGateway: IOrderGateway, id: String) = orderConfig.orderUseCase().deleteOrder(
-    orderGateway, id
-  )
-
-  fun updatePaymentOrder(orderGateway: IOrderGateway, paymentDTO: PaymentDTO) =
-    orderConfig.orderUseCase().updatePaymentOrder(orderGateway, paymentDTO)
 }

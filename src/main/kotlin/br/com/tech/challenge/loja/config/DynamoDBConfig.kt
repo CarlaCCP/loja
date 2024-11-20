@@ -1,8 +1,6 @@
 package br.com.tech.challenge.loja.config
 
-
 import br.com.tech.challenge.loja.interfaces.gateway.IClientGateway
-import br.com.tech.challenge.loja.interfaces.gateway.IOrderGateway
 import br.com.tech.challenge.loja.interfaces.gateway.IProductGateway
 import com.amazonaws.auth.*
 import com.amazonaws.regions.Regions
@@ -16,8 +14,7 @@ import org.springframework.context.annotation.Configuration
 @EnableDynamoDBRepositories(
   basePackageClasses = [
     IClientGateway::class,
-    IProductGateway::class,
-    IOrderGateway::class
+    IProductGateway::class
   ]
 )
 class DynamoDBConfig (private val awsProperties: AwsProperties){

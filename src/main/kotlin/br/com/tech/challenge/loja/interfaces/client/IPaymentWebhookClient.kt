@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod
 //@FeignClient(url = "localhost:8081", value = "payment")
 interface IPaymentWebhookClient {
 
-  @RequestMapping(method = [RequestMethod.POST], value = ["/payment/create/{id}"])
-  fun createPayment(@PathVariable id: String): PaymentEvent
 
   @RequestMapping(method = [RequestMethod.GET], value = ["/payment/{id}"])
   fun getPayment(@PathVariable id: String) : PaymentDTO?
