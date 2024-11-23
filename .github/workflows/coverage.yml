@@ -19,12 +19,12 @@ jobs:
       - name: Run Coverage
         run: |
           chmod +x mvnw
-          ./mvnw jacoco:report
+          ./mvnw clean verify
 
       - name: Upload Report
         uses: 'actions/upload-artifact@v3'
         with:
-          name: jacoco-coverage-report
+          name: jacoco.xml
           path: ${{ github.workspace }}/target/site/jacoco/jacoco.xml
 
       - name: Jacoco Report to PR
