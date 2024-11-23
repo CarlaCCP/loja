@@ -8,7 +8,7 @@ class HelloWorldTest {
   @Test
   @DisplayName("HELLOOOO")
   fun oi() {
-    val expected = 42
-    assert(expected == 42)
+    val expected = 43
+    assert(expected == 43)
   }
 }
