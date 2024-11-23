@@ -25,7 +25,7 @@ jobs:
         uses: 'actions/upload-artifact@v3'
         with:
           name: jacoco-coverage-report
-          path: target/site/jacoco/jacoco.xml
+          path: ${{ github.workspace }}/target/site/jacoco/jacoco.xml
 
       - name: Jacoco Report to PR
         id: jacoco
