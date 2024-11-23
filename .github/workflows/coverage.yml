@@ -20,8 +20,8 @@ jobs:
         with:
           java-version: '17'
 
-      - name: Set up Kotlin
-        uses: jt12/kt-configure-action@v1.2
+#      - name: Set up Kotlin
+#        uses: jt12/kt-configure-action@v1.2
 
       - name: Build with Maven
         run: mvn clean install -DskipTests=false
