@@ -18,8 +18,8 @@ jobs:
           distribution: 'temurin'
       - name: Run Coverage
         run: |
-          chmod +x mvn
-          ./mvn testCoverage
+          chmod +x mvnw
+          ./mvnw testCoverage
 
       - name: Add coverage to PR
         id: jacoco
