@@ -1,5 +1,6 @@
 package br.com.tech.challenge.loja.config
 
+import br.com.tech.challenge.loja.core.entity.product.Product
 import br.com.tech.challenge.loja.interfaces.gateway.IProductGateway
 import br.com.tech.challenge.loja.usecase.ProductUseCase
 import org.springframework.context.annotation.Bean
@@ -18,7 +19,7 @@ class ProductConfig(
 
   @EventListener(ContextRefreshedEvent::class)
   fun insertProductsOnInit() {
-    ProductUseCase().insertProductsOnInit(productGateway)
+    ProductUseCase().insertProductsOnInit(productGateway, Product.buildStaticProducts())
   }
 
 }

@@ -33,9 +33,9 @@ class ProductUseCase {
 
   fun deleteProduct(productGateway: IProductGateway, id: String) = productGateway.deleteById(id)
 
-  fun insertProductsOnInit(productGateway: IProductGateway) {
+  fun insertProductsOnInit(productGateway: IProductGateway, products: List<Product>) {
     if (productGateway.findAll().isNullOrEmpty()) {
-      Product.buildStaticProducts().map {
+      products.map {
         productGateway.save(it)
       }
       log.info { "Produtos cadastrados com sucesso" }

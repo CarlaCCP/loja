@@ -16,7 +16,7 @@ import io.mockk.*
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
 import java.time.LocalDateTime
 
-class OrderUseCaseTest : FunSpec({
+class OrderUseCaseTest : FunSpec ({
 
   lateinit var orderClient : IOrderClient
   lateinit var productRepository : IProductGateway
