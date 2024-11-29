@@ -19,9 +19,10 @@ class OrderUseCase {
     orderRequest: OrderDTO,
   ): OrderAdapter {
     orderRequest.products.map {
-      if (productRepository.findById(it.id!!) == null)
+      if (productRepository.findById(it.id!!) == null) {
         log.error { "Produtos não encontrados" }
-      throw NotFoundException()
+        throw NotFoundException()
+      }
     }
     return orderClient.createOrder(orderRequest)
   }

@@ -12,17 +12,6 @@ data class ProductDTO(
     var imagem: String
 ) {
 
-  companion object {
-    fun fromProduct(product: Product) =
-        ProductDTO(
-            product.id,
-            product.categoria.description,
-            product.nome,
-            product.descricao,
-            product.preco,
-            product.imagem
-        )
-  }
 
   fun toProduct() =
       Product(

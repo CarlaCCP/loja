@@ -11,27 +11,4 @@ data class OrderGetAdapter(
   val createdAt: LocalDateTime? = null,
   val preco: Double? = null,
   val status: String? = null
-) {
-  companion object {
-    fun fromOrder(order: Order?) =
-      order?.products?.let {
-        OrderGetAdapter(
-          order.id,
-          it.map { product -> ProductDTO.fromProduct(product) },
-          order.createdAt,
-          order.preco,
-          order.orderStatus?.description
-        )
-      }
-  }
-
-  fun toPedido() =
-      Order(
-          products = products.map {
-            it.toProduct()
-          },
-          preco = products.sumOf { it.preco },
-          orderStatus = status?.let { Status.getByDescription(it) },
-          createdAt = createdAt,
-      )
-}
+)
