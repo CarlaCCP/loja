@@ -22,7 +22,7 @@ Esta aplicação simula o fluxo de compra de uma loja.
 http://localhost:8080/swagger-ui/index.html
 
 ## Docker Compose
-- Start da aplicação: docker-compose up -d 
+- Start da aplicação: docker-compose up -d
 
 
 ## Evidência de cobertura com Jacoco
